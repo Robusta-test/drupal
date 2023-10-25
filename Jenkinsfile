@@ -22,9 +22,7 @@ pipeline {
         }                    
         stage("build image") {
             steps {
-                tool 'docker'
                 script {    
-                   sh 'docker ps'
                    // withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                    //  sh """
                    //    #sudo chmod 777 /var/run/docker.sock
