@@ -31,7 +31,7 @@ pipeline {
                    //    docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                    //    """
                   docker.withRegistry('https://docker.io/', 'Docker') {
-                    def image = docker.build('https://docker.io/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}')
+                    def image = docker.build('https://docker.io/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .') 
                     image.push()
                      }                    
                    }
