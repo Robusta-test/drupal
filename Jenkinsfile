@@ -23,16 +23,17 @@ pipeline {
         stage("build image") {
             steps {
                 script {    
-                   // withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                   //  sh """
-                   //    chmod 777 /var/run/docker.sock
-                   //    docker login -u $USERNAME -p $PASSWORD
-                   //    docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
-                   //    docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-                   //    """
-                  docker.withRegistry('https://docker.io', 'Docker') {
-                    def image = docker.build('ahmedgmansour/drupal:39 .') 
-                    image.push()
+                   withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                      service docker status
+                      chmod 777 /var/run/docker.sock
+                      docker login -u $USERNAME -p $PASSWORD
+                      docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
+                      docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                      """
+                  // docker.withRegistry('https://docker.io', 'Docker') {
+                  //   def image = docker.build('ahmedgmansour/drupal:39 .') 
+                  //   image.push()
                      }                    
                    }
                 }
