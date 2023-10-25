@@ -1,16 +1,15 @@
 pipeline { 
-  tools {
-    // a bit ugly because there is no `@Symbol` annotation for the DockerTool
-    // see the discussion about this in PR 77 and PR 52: 
-    // https://github.com/jenkinsci/docker-commons-plugin/pull/77#discussion_r280910822
-    // https://github.com/jenkinsci/docker-commons-plugin/pull/52
-    dockerTool 'docker-19.03.11'
-  }    
+  // tools {
+  //   // a bit ugly because there is no `@Symbol` annotation for the DockerTool
+  //   // see the discussion about this in PR 77 and PR 52: 
+  //   // https://github.com/jenkinsci/docker-commons-plugin/pull/77#discussion_r280910822
+  //   // https://github.com/jenkinsci/docker-commons-plugin/pull/52
+  //   dockerTool 'docker-19.03.11'
+  // }    
     agent any // runs on any available jenkins agent..
     environment {
         DOCKER_IMAGE_NAME = " "
         NAMESPACE = " "
-        PATH = '/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin'
 
     }
     stages {
@@ -36,8 +35,8 @@ pipeline {
                     sh """
                       echo $PATH
                       docker login -u $USERNAME -p $PASSWORD
-                      cd /var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin && ./docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} . \
-                      && ./docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                      docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
+                      docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                       """
                   // docker.withRegistry('https://docker.io', 'Docker') {
                   //   def image = docker.build('ahmedgmansour/drupal:39 .') 
