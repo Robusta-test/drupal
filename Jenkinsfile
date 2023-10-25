@@ -17,12 +17,12 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == "master") {
-                        DOCKER_IMAGE_NAME = "ahmedgmansour/drupal"
+                        DOCKER_IMAGE_NAME = "docker.io/ahmedgmansour/drupal"
                         NAMESPACE = ""
                     }
                     else if (env.BRANCH_NAME == "test")
                     {
-                        DOCKER_IMAGE_NAME = "ahmedgmansour/drupal-test"
+                        DOCKER_IMAGE_NAME = "docker.io/ahmedgmansour/drupal-test"
                         NAMESPACE = "test"
                     }
                 }
