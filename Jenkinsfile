@@ -23,16 +23,16 @@ pipeline {
         stage("build image") {
             steps {
                 script {    
-                   withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                      #sudo chmod 777 /var/run/docker.sock
-                      docker login -u $USERNAME -p $PASSWORD
-                      docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
-                      docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-                      """
-                  // docker.withRegistry('https://docker.io/', 'Docker') {
-                  //   def image = docker.build('https://docker.io/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .') 
-                  //   image.push()
+                   // withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                   //  sh """
+                   //    #sudo chmod 777 /var/run/docker.sock
+                   //    docker login -u $USERNAME -p $PASSWORD
+                   //    docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
+                   //    docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                   //    """
+                  docker.withRegistry('docker.io', 'Docker') {
+                    def image = docker.build('docker.io/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .') 
+                    image.push()
                      }                    
                    }
                 }
