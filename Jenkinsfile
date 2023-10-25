@@ -1,4 +1,7 @@
 pipeline {
+  environment {
+    PATH = '/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin'
+      }  
   tools {
     // a bit ugly because there is no `@Symbol` annotation for the DockerTool
     // see the discussion about this in PR 77 and PR 52: 
@@ -46,8 +49,5 @@ pipeline {
             } 
 
         }
-  environment {
-    PATH = '/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin'
 
-      }
     }
