@@ -21,7 +21,7 @@ pipeline {
             }
         }                    
         stage("build image") {
-            tools 'docker'
+            tool 'docker'
             steps {
                 script {    
                    sh 'docker ps'
