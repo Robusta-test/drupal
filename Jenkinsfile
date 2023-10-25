@@ -21,8 +21,8 @@ pipeline {
             }
         }                    
         stage("build image") {
-            tool 'docker'
             steps {
+                tool 'docker'
                 script {    
                    sh 'docker ps'
                    // withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
