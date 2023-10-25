@@ -31,7 +31,7 @@ pipeline {
                    //    docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                    //    """
                   docker.withRegistry('https://docker.io', 'Docker') {
-                    def image = docker.build('ahmedgmansour/drupal:$BUILD_NUMBER .') 
+                    def image = docker.build('ahmedgmansour/drupal:39 .') 
                     image.push()
                      }                    
                    }
