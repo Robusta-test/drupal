@@ -36,8 +36,8 @@ pipeline {
                     sh """
                       echo $PATH
                       docker login -u $USERNAME -p $PASSWORD
-                      /var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin/docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
-                      /var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin/docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                      cd /var/jenkins_home/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker-19.03.11/bin && ./docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} . \
+                      && ./docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                       """
                   // docker.withRegistry('https://docker.io', 'Docker') {
                   //   def image = docker.build('ahmedgmansour/drupal:39 .') 
