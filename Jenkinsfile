@@ -32,8 +32,6 @@ pipeline {
                 script {    
                    withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                      // service docker status
-                      // chmod 777 /var/run/docker.sock
                       docker login -u $USERNAME -p $PASSWORD
                       docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
                       docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
