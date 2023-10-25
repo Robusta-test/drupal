@@ -9,12 +9,12 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == "master") {
-                        DOCKER_IMAGE_NAME = "artifactory.vodafone.com:443/docker-vfie-tozi-local/profile-ms-dev"
+                        DOCKER_IMAGE_NAME = "ahmedgmansour/drupal"
                         NAMESPACE = ""
                     }
                     else if (env.BRANCH_NAME == "test")
                     {
-                        DOCKER_IMAGE_NAME = "artifactory.vodafone.com:443/docker-vfie-tozi-local/profile-ms-test"
+                        DOCKER_IMAGE_NAME = "ahmedgmansour/drupal-test"
                         NAMESPACE = "test"
                     }
                 }
