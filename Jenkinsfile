@@ -34,7 +34,7 @@ pipeline {
                    withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                       echo $PATH
-                      docker login -u $USERNAME -p $PASSWORD
+                      docker login registry-1.docker.io -u $USERNAME -p $PASSWORD
                       docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
                       docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                       """
