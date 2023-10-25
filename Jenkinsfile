@@ -8,7 +8,7 @@ pipeline {
         stage('init') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == "main") {
+                    if (env.BRANCH_NAME == "master") {
                         DOCKER_IMAGE_NAME = "artifactory.vodafone.com:443/docker-vfie-tozi-local/profile-ms-dev"
                         NAMESPACE = ""
                     }
