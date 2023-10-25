@@ -37,15 +37,6 @@ pipeline {
                    }
                 }
             } 
-        stage('Push updates to vf-ie-apps-for-good-tozi ') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-
-                            }
-                }
-            }   
-          }
 
         }
     }
