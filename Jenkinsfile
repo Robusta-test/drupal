@@ -39,7 +39,7 @@ pipeline {
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
-                             --destination=${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                             --destination=ahmedgmansour/drupal:${BUILD_NUMBER}
             '''
             }
             }
