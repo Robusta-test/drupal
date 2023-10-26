@@ -6,10 +6,11 @@ pipeline {
   //   // https://github.com/jenkinsci/docker-commons-plugin/pull/52
   //   dockerTool 'docker-19.03.11'
   // }    
-    agent 
+    agent {
       kubernetes {
         yamlFile 'builder.yaml'
-    }
+      }
+    }   
     environment {
         DOCKER_IMAGE_NAME = " "
         NAMESPACE = " "
