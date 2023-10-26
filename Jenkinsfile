@@ -6,7 +6,10 @@ pipeline {
   //   // https://github.com/jenkinsci/docker-commons-plugin/pull/52
   //   dockerTool 'docker-19.03.11'
   // }    
-    agent any // runs on any available jenkins agent..
+    agent 
+      kubernetes {
+      yamlFile 'builder.yaml'
+    }
     environment {
         DOCKER_IMAGE_NAME = " "
         NAMESPACE = " "
@@ -28,24 +31,18 @@ pipeline {
                 }
             }
         }                    
-        stage("build image") {
-            steps {
-                script {    
-                   withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                      echo $PATH
-                      docker login registry-1.docker.io -u $USERNAME -p $PASSWORD
-                      docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
-                      docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-                      """
-                  // docker.withRegistry('https://docker.io', 'Docker') {
-                  //   def image = docker.build('ahmedgmansour/drupal:39 .') 
-                  //   image.push()
-                     }                    
-                   }
-                }
-            } 
-
+    stage('Kaniko Build & Push Image') {
+      steps {
+        container('kaniko') {
+          script {
+            sh '''
+            /kaniko/executor --dockerfile `pwd`/Dockerfile \
+                             --context `pwd` \
+                             --destination=ahmedgmansour/myweb:${BUILD_NUMBER}
+            '''
+            }
+            }
+          }
+         } 
         }
-
     }
