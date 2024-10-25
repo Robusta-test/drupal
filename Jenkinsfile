@@ -32,7 +32,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'diamond', url: 'https://github.com/Robusta-test/drupal.git'
+                git branch: 'main', url: 'https://github.com/Aakibgithuber/deployment-of-youtube.git'
             }
         }
         stage("Docker Build & Push"){
@@ -48,7 +48,7 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name drupal -p 9080:80 ahmedgmansour/$DOCKER_IMAGE_NAME:latest'
+                sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/$DOCKER_IMAGE_NAME:latest'
             }
         }
     }
