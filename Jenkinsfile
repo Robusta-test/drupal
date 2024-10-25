@@ -34,23 +34,28 @@ pipeline{
             steps{
                 git branch: 'diamond', url: 'https://github.com/Robusta-test/drupal.git'
             }
-        }
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build -t ${DOCKER_IMAGE_NAME} ."
-                       sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
-                       sh "docker push ${DOCKER_IMAGE_NAME}:latest "
-                    }
-                }
+        stage('Compile') {
+            steps {
+                sh "echo hello"
             }
-        }
-        stage('Deploy to container'){
-            steps{
-                sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/${DOCKER_IMAGE_NAME}:latest'
-            }
-        }
-    }
+        }           
+    //     }
+    //     stage("Docker Build & Push"){
+    //         steps{
+    //             script{
+    //                withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+    //                    sh "docker build -t ${DOCKER_IMAGE_NAME} ."
+    //                    sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
+    //                    sh "docker push ${DOCKER_IMAGE_NAME}:latest "
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     stage('Deploy to container'){
+    //         steps{
+    //             sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/${DOCKER_IMAGE_NAME}:latest'
+    //         }
+    //     }
+    // }
   }
   
