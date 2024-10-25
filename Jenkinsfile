@@ -50,7 +50,7 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name youtube-clone -p 3000:3000 ahmedgmansour/$DOCKER_IMAGE_NAME:latest'
+                sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/$DOCKER_IMAGE_NAME:latest'
             }
         }
     }
