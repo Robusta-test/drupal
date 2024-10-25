@@ -41,7 +41,6 @@ pipeline{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                       sh """
                         echo ${DOCKER_IMAGE_NAME}
-                        docker tag ${DOCKER_IMAGE_NAME}:latest
                         docker build -t ${DOCKER_IMAGE_NAME} .
                         docker push ${DOCKER_IMAGE_NAME}:latest1
                         """
