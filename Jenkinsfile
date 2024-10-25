@@ -34,18 +34,31 @@ pipeline{
             steps {
                 sh "echo hello"
             }
-        }           
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build -t ${DOCKER_IMAGE_NAME} ."
-                       sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
-                       sh "docker push ${DOCKER_IMAGE_NAME}:latest "
-                    }
+        } 
+        stage("build image") {
+              steps {
+                  script {                   
+                     withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                      sh """
+                        docker login -u ahmedgmansour -u $USERNAME -p $PASSWORD
+                        docker build -t ${FINAL_IMAGE_NAME} .
+                        docker push ${FINAL_IMAGE_NAME}
+                        """
+                   }
                 }
             }
-        }
+        }                  
+        // stage("Docker Build & Push"){
+        //     steps{
+        //         script{
+        //            withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+        //                sh "docker build -t ${DOCKER_IMAGE_NAME} ."
+        //                sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
+        //                sh "docker push ${DOCKER_IMAGE_NAME}:latest "
+        //             }
+        //         }
+        //     }
+        // }
         stage('Deploy to container'){
             steps{
                 sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/${DOCKER_IMAGE_NAME}:latest'
