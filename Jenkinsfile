@@ -38,11 +38,11 @@ pipeline{
         stage("build image") {
               steps {
                   script {                   
-                     withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                       sh """
-                        docker login -u ahmedgmansour -u $USERNAME -p $PASSWORD
-                        docker build -t ${FINAL_IMAGE_NAME} .
-                        docker push ${FINAL_IMAGE_NAME}
+                        docker build -t ${DOCKER_IMAGE_NAME} .
+                        docker tag ${DOCKER_IMAGE_NAME}:latest1
+                        docker push ${DOCKER_IMAGE_NAME}:latest1
                         """
                    }
                 }
