@@ -25,10 +25,10 @@ pipeline{
                 cleanWs()
             }
         }
-        stage('Checkout from Git'){
-            steps{
-                git branch: 'diamond', url: 'https://github.com/Robusta-test/drupal.git'
-            }
+        // stage('Checkout from Git'){
+        //     steps{
+        //         git branch: 'diamond', url: 'https://github.com/Robusta-test/drupal.git'
+        //     }
         stage('Compile') {
             steps {
                 sh "echo hello"
