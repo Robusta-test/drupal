@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment {
         DOCKER_IMAGE_NAME = " "
+        DOCKER_PASS = 'dockerhub'
         // NAMESPACE = " "
     }
     stages {
@@ -35,30 +36,30 @@ pipeline{
                 sh "echo hello"
             }
         } 
-        stage("build image") {
-              steps {
-                  script {                   
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                      sh """
-                        docker build -t ${DOCKER_IMAGE_NAME} .
-                        docker tag ${DOCKER_IMAGE_NAME}:latest1
-                        docker push ${DOCKER_IMAGE_NAME}:latest1
-                        """
-                   }
-                }
-            }
-        }                  
-        // stage("Docker Build & Push"){
-        //     steps{
-        //         script{
-        //            withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-        //                sh "docker build -t ${DOCKER_IMAGE_NAME} ."
-        //                sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
-        //                sh "docker push ${DOCKER_IMAGE_NAME}:latest "
-        //             }
+        // stage("build image") {
+        //       steps {
+        //           script {                   
+        //             withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+        //               sh """
+        //                 docker build -t ${DOCKER_IMAGE_NAME} .
+        //                 docker tag ${DOCKER_IMAGE_NAME}:latest1
+        //                 docker push ${DOCKER_IMAGE_NAME}:latest1
+        //                 """
+        //            }
         //         }
         //     }
-        // }
+        // }                  
+        stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                       sh "docker build -t ${DOCKER_IMAGE_NAME} ."
+                       sh "docker tag ${DOCKER_IMAGE_NAME}:latest "
+                       sh "docker push ${DOCKER_IMAGE_NAME}:latest "
+                    }
+                }
+            }
+        }
         stage('Deploy to container'){
             steps{
                 sh 'docker run -d --name drupal -p 8080:80 ahmedgmansour/${DOCKER_IMAGE_NAME}:latest'
