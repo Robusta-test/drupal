@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        DOCKER_IMAGE_NAME = " "
+        DOCKER_IMAGE_NAME = "ahmedgmansour/drupal"
         // NAMESPACE = " "
     }
     stages {
